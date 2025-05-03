@@ -6,3 +6,7 @@ class objective:
         self.due_date = due_date 
         self.hours_accomplished = 0
         self.history = []
+
+    def track_time(self, hours):
+        self.hours_accomplished += hours
+        self.history.append((datetime.date.today(), hours))
