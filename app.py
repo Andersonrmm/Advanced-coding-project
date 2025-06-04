@@ -30,9 +30,26 @@ def insert_objective():
     objective = Objective(topic, expected_hours, due_date)
     person.insert_objective(objective)
     open_menu()
-    messagebox.showinfo("Your objective was placed sucessfully!")
+    messagebox.showinfo("Your objective was placed successfully!")
 
-def log_objective():
+def log_objective(): 
+    if not person.objective:
+        messagebox.showwarning("Currently, there are no objectives","Add a objective first")
+        return
+    options = [objective.topic for objective in person.objective]
+    option = askstring("Select objective", f"Which objective?" ({','}.join(options)))
+    selected_objective = [obj for obj in person.objective if obj.little.lower() == option.lower()]
+    if not selected_objective:
+        messagebox.showwarning("The selected objective was not found")
+
+    expected_hours = float(askstring("Completed hours", "How many hours have you completed?"))
+    selected_objective[0].log_objective(expected_hours)
+    open_menu()
+    messagebox.showinfo("Your completed hours were placed successfully")
+ 
+    
+
+
 
     
 
