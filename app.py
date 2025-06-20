@@ -22,7 +22,7 @@ def open_menu():
     menu_text.delete("0.0", "end")
     for objective in user.plan: 
         progress = objective.view_progression()
-        report = "Finalized" if progress >= 100 else f"{progress:.1f}% finalized"
+        report = "Finalized" if progress >= 100 else f"{progress:.1f}%"
         menu_text.insert("end", f"{objective.topic}: {objective.hours_accomplished}/{objective.expected_hours}h {report}\n") 
 
 def insert_objective():
@@ -41,7 +41,10 @@ def log_objective():
         return
     options = [obj.topic for obj in user.plan]
     option = askstring("Select objective", f"Which objective? ({', '.join(options)})")
-    
+    if not option:
+        messagebox.showwarning("No topic was entered")
+        return
+
     selected_objective = [obj for obj in user.plan if obj.topic.lower() == option.lower()]
     if not selected_objective:
         messagebox.showwarning("The selected objective was not found")
