@@ -9,4 +9,4 @@ class User(Person):
         self.plan = []
 
     def put_objective(self,objective):
-        self.plans.append(objective) # To add the plan to the given plans list  
+        self.plan.append(objective) # To add the plan to the given plans list  
