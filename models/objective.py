@@ -13,5 +13,5 @@ class Obj:
         self.history.append((datetime.date.today(), hours)) # Log with the present date and the hours worked
 
     def view_progression(self): 
-        return (self.hours_accomplished / self.expected_hours) * 100 # To calculate the percentage completed of the objective
+        return (self.hours_accomplished / self.expected_hours) * 100 if self.expected_hours else 0 # To calculate the percentage completed of the objective
     
