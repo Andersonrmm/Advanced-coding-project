@@ -8,5 +8,5 @@ class user(person):
         person.__init__(self, person_id, name) # For user class to reuse the code from person class 
         self.plan = []
 
-    def put_plan(self,plan):
-        self.plans.append(plan) # To add the plan to the given plans list  
+    def put_objective(self,objective):
+        self.plans.append(objective) # To add the plan to the given plans list  

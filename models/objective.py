@@ -1,6 +1,6 @@
 import datetime
 
-class objective: 
+class Obj: 
     def __init__(self, topic, expected_hours, due_date):
         self.topic = topic # Name of the objective to be completed
         self.expected_hours = expected_hours # How many hours needed for the objective to be completed 
