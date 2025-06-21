@@ -55,6 +55,26 @@ def insert_objective():
     open_menu()
     messagebox.showinfo("Your objective was placed successfully!")
 
+def insert_object():
+    def send():
+        topic = insert_topic.get()
+        try: 
+            expected_hours = float(insert_hours.get())
+            due_date = datetime.datetime.strptime(insert_date.get(), "%Y-%m-%d").date()
+        except ValueError:
+            messagebox.showerror("Invalid data", "Please insert a valid data")
+            return
+        
+        objective = Obj(topic, expected_hours, due_date)
+        user.put_objective(objective)
+        open_menu()
+        messagebox.showinfo("Your objective was placed successfully!")
+        obj_popup.destroy()
+
+        
+
+
+
 def log_objective(): 
     if not user.plan:
         messagebox.showwarning("Currently, there are no objectives","Add a objective first")
