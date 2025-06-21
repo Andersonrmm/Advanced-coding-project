@@ -104,18 +104,26 @@ def log_objective():
 
 
 def display_status():
-    status = ""
-    for objective in user.plan: 
-        status += f"\n {objective.topic} - Expected hours: {objective.expected_hours}h Completed hours: {objective.hours_accomplished}h\n"
-        for date, hrs in objective.history: 
-            status += f"{date} - {hrs}h\n"
-        messagebox.showinfo("Objective record", status or "There is currently no data available" )
-
-
-def display_status():
     if not user.plan:        
         messagebox.showinfo("There is currently no data available" )
         return
+
+    progress_record = ctk.CTkToplevel(planner)
+    progress_record.title("Objective record")
+    progress_record.geometry("600x500")
+
+    frame = ctk.CTkScrollableFrame(progress_record, width= 500, height = 400 )
+    frame.pack(pady =10, padx = 10)
+
+    for obj in user.plan: 
+        ctk.CTkLabel(frame, text =f"{obj.topic}", font=ctk.CTkFont(weight="bold")).pack(anchor ="w", padx = 10, pady = (10,0))
+        ctk.CTkLabel(frame, text =f"Expected hours: {obj.expected_hours}h Completed so far: {obj.hours_accomplished}h").pack(anchor ="w",pady = (10,0))
+
+        if obj.history: 
+            for date, hrs in obj.history: 
+                ctk.CTkLabel(frame, text=f"{date} - {hrs}h").pack(anchor = "w", padx = 40)
+        else: 
+            ctk.CTkLabel(frame, text="(No hours were recorded so far)").pack(anchor = "w", padx = 40)
 
 
 def clear_goals():
