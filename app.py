@@ -7,7 +7,7 @@ from persistence import save_person, read_person
 import datetime
 
 ctk.set_appearance_mode("light")
-ctk.set_default_color_theme("green")
+ctk.set_default_color_theme("dark-blue")
 
 user = read_person()
 if not user:
@@ -19,7 +19,7 @@ planner.geometry = ("1200x1200")
 planner.title("Objective Planner")
 
 panel = ctk.CTkFrame(planner, width=300, corner_radius=0)
-panel.pack(side = "right", fill="y")
+panel.pack(fill="x")
 
 ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
 
@@ -29,16 +29,15 @@ ctk.CTkButton(panel, text="Display Status", width= 200, command= lambda: display
 ctk.CTkButton(panel, text="Log Objectives Duration", width= 200, command= lambda: log_objective()).pack(pady= 10)
 ctk.CTkButton(panel, text="Insert Objective", width= 200, command= lambda: insert_objective()).pack(pady= 10)
 
-
 info = ctk.CTkFrame(panel, corner_radius= 10)
-info.pack(side= "right", expand = True, fill = "both", padx = 20, pady = 20)
+info.pack(expand = True, fill = "both", padx = 20, pady = 20)
 
 tittle_label = ctk.CTkLabel(info, text ="Your Objectives", font=ctk.CTkFont(size= 30, weight="bold"))
 tittle_label.pack(pady=25)
 
 menu_text = ctk.CTkTextbox(info, width= 700, height= 400)
 menu_text.configure(fg_color = "#ffffff", text_color = "#000000")
-menu_text.pack(pady = 20)
+menu_text.pack(fill = "y", pady = 20)
 
 
 def open_menu(): 
@@ -125,4 +124,4 @@ def save_exit():
 
 menu_text.insert("0.0", "Greetings from your planner")
 open_menu()
-planner.mainloop()
+planner.mainloop() 
