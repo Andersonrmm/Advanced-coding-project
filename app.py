@@ -6,7 +6,7 @@ from models.objective import Obj
 from persistence import save_person, read_person
 import datetime
 
-ctk.set_appearance_mode("System")
+ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("green")
 
 user = read_person()
