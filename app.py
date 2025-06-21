@@ -116,8 +116,9 @@ def display_status():
     frame.pack(pady =10, padx = 10)
 
     for obj in user.plan: 
-        ctk.CTkLabel(frame, text =f"{obj.topic}", font=ctk.CTkFont(weight="bold")).pack(anchor ="w", padx = 10, pady = (10,0))
-        ctk.CTkLabel(frame, text =f"Expected hours: {obj.expected_hours}h Completed so far: {obj.hours_accomplished}h").pack(anchor ="w",pady = (10,0))
+        ctk.CTkLabel(frame, text =f"{obj.topic}", font=ctk.CTkFont(weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text =f"Expected hours: {obj.expected_hours}h", font=ctk.CTkFont(weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text= f"Completed so far: {obj.hours_accomplished}h", font=ctk.CTkFont(weight="bold")).pack(anchor ="center",padx = 20, pady = (20,0))
 
         if obj.history: 
             for date, hrs in obj.history: 
