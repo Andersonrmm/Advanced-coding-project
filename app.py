@@ -14,9 +14,29 @@ if not user:
     name = askstring ("Greetings", "Kindly provide your name")
     user = User(person_id=1, name=name)
 
-root = ctk.CTk() 
-root.geometry = ("1200x1200")
-root.titte = ("Objective Planner")
+planner = ctk.CTk() 
+planner.geometry = ("1200x1200")
+planner.title = ("Objective Planner")
+
+panel = ctk.CTkFrame(planner, width=300, corner_radius=0)
+panel.pack(side = "right", fill="y")
+
+ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
+
+ctk.CTkButton(panel, text="Save and Exit", width= 200, command= lambda: save_exit()).pack(pady= 10)
+ctk.CTkButton(panel, text="Display Status", width= 200, command= lambda: display_status()).pack(pady= 10)
+ctk.CTkButton(panel, text="Log Objective Duration", width= 200, command= lambda: log_objective()).pack(pady= 10)
+ctk.CTkButton(panel, text="Insert Objective", width= 200, command= lambda: insert_objective()).pack(pady= 10)
+
+info = ctk.CTkFrame(planner, corner_radius= 10)
+info.pack(side= "right", expand = True, fill = "both", padx = 20, pady = 20)
+
+tittle_label = ctk.CTkLabel(planner, text ="Your Objectives", font=ctk.CTkFont(size= 30, weight="bold"))
+tittle_label.pack(pady=25)
+
+menu_text = ctk.CTkTextbox(planner, width= 700, height= 400)
+menu_text.configure(fg_color = "#ffffff", text_color = "#000000")
+menu_text.pack(pady = 20)
 
 def open_menu(): 
     menu_text.delete("0.0", "end")
@@ -58,21 +78,14 @@ def display_status():
     status = ""
     for objective in user.plan: 
         status += f"\n {objective.topic} - Expected hours: {objective.expected_hours}h Completed hours: {objective.hours_accomplished}h\n"
-        for date, h in objective.history: 
-            status += f"{date} - {h}h\n"
+        for date, hrs in objective.history: 
+            status += f"{date} - {hrs}h\n"
         messagebox.showinfo("Objective record", status or "There is currently no data available" )
 
 def save_exit():
     save_person(user)
-    root.quit
-        
-ctk.CTkButton(root, text="Save and exit", command= save_exit, width= 25).pack(pady= 10)
-ctk.CTkButton(root, text="Display status", command= display_status, width= 25).pack(pady= 10)
-ctk.CTkButton(root, text="Log objective duration", command= log_objective, width= 25).pack(pady= 10)
-ctk.CTkButton(root, text="Insert objective", command= insert_objective, width= 25).pack(pady= 10)
+    planner.quit
 
-menu_text = ctk.CTkTextbox(root, width= 700, height= 400)
-menu_text.pack(pady = 20)
+menu_text.insert("0.0", "Greetings from your planner")
 open_menu()
-
-root.mainloop()
+planner.mainloop()
