@@ -23,10 +23,12 @@ panel.pack(side = "right", fill="y")
 
 ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
 
+ctk.CTkButton(panel, text="Clear All objectives", width= 200, command= lambda: clear_goals()).pack(pady= 10)
 ctk.CTkButton(panel, text="Save and Exit", width= 200, command= lambda: save_exit()).pack(pady= 10)
 ctk.CTkButton(panel, text="Display Status", width= 200, command= lambda: display_status()).pack(pady= 10)
-ctk.CTkButton(panel, text="Log Objective Duration", width= 200, command= lambda: log_objective()).pack(pady= 10)
+ctk.CTkButton(panel, text="Log Objectives Duration", width= 200, command= lambda: log_objective()).pack(pady= 10)
 ctk.CTkButton(panel, text="Insert Objective", width= 200, command= lambda: insert_objective()).pack(pady= 10)
+
 
 info = ctk.CTkFrame(panel, corner_radius= 10)
 info.pack(side= "right", expand = True, fill = "both", padx = 20, pady = 20)
@@ -109,6 +111,12 @@ def display_status():
         for date, hrs in objective.history: 
             status += f"{date} - {hrs}h\n"
         messagebox.showinfo("Objective record", status or "There is currently no data available" )
+
+def clear_goals():
+    user.plan.clear()
+    save_person(user)
+    open_menu()
+    messagebox.showinfo("All topics were cleared successfully")
 
 
 def save_exit():
