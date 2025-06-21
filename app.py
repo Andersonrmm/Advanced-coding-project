@@ -111,6 +111,13 @@ def display_status():
             status += f"{date} - {hrs}h\n"
         messagebox.showinfo("Objective record", status or "There is currently no data available" )
 
+
+def display_status():
+    if not user.plan:        
+        messagebox.showinfo("There is currently no data available" )
+        return
+
+
 def clear_goals():
     user.plan.clear()
     save_person(user)
