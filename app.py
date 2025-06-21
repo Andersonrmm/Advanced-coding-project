@@ -83,33 +83,13 @@ def insert_objective():
     ctk.CTkButton(popup, text= "Add Objective", command= send).pack(pady = 30)
 
 
-def log_objective(): 
-    if not user.plan:
-        messagebox.showwarning("Currently, there are no objectives","Add a objective first")
-        return
-    options = [obj.topic for obj in user.plan]
-    option = askstring("Select objective", f"Which objective? ({', '.join(options)})")
-    if not option:
-        messagebox.showwarning("No topic was entered")
-        return
-
-    selected_objective = [obj for obj in user.plan if obj.topic.lower() == option.lower()]
-    if not selected_objective:
-        messagebox.showwarning("The selected objective was not found")
-        return
-    expected_hours = float(askstring("Completed hours", "How many hours have you completed?"))
-    selected_objective[0].track_time(expected_hours)
-    open_menu()
-    messagebox.showinfo("Your completed hours were placed successfully")
-
-
 def log_objective():
     if not user.plan:
         messagebox.showwarning("Currently, there are no objectives","Add a objective first")
         return  
 
     def send(): 
-        selected_topic = dropdown.get()
+        selected_topic = option_menu.get()
         selected_obj = [obj for obj in user.plan if obj.topic == selected_topic] 
         if not selected_obj:
             messagebox.showwarning("The selected objective was not found")
@@ -127,13 +107,18 @@ def log_objective():
         popup.destroy()
 
     popup = ctk.CTkToplevel(planner)
-    popup.title ("Loggin in hours")
+    popup.title ("Loggin time in hours")
     popup.geometry("500x400")
 
-    
+    ctk.CTkLabel(popup, text = "Choose topic:").pack(pady=(10,0))
+    option_menu = ctk.CTkOptionMenu(popup, values=[obj.topic for obj in user.plan])
+    option_menu.pack(pady=(0,20))
 
+    ctk.CTkLabel(popup, text = "Completed hours so far:").pack(pady=(20,0))
+    insert_hours = ctk.CTkEntry(popup, width= 400)
+    insert_hours.pack()
 
-
+    ctk.CTkButton(popup, text = "Record time", command=send).pack(pady=30)
 
 
 def display_status():
