@@ -103,6 +103,39 @@ def log_objective():
     messagebox.showinfo("Your completed hours were placed successfully")
 
 
+def log_objective():
+    if not user.plan:
+        messagebox.showwarning("Currently, there are no objectives","Add a objective first")
+        return  
+
+    def send(): 
+        selected_topic = dropdown.get()
+        selected_obj = [obj for obj in user.plan if obj.topic == selected_topic] 
+        if not selected_obj:
+            messagebox.showwarning("The selected objective was not found")
+            return
+
+        try: 
+            expected_hours = float(insert_hours.get())
+        except ValueError:
+            messagebox.showerror("Please insert a valid number of hours!")
+            return
+        
+        selected_obj[0].track_time(expected_hours)
+        open_menu()
+        messagebox.showinfo("Your completed hours were placed successfully")
+        popup.destroy()
+
+    popup = ctk.CTkToplevel(planner)
+    popup.title ("Loggin in hours")
+    popup.geometry("500x400")
+
+    
+
+
+
+
+
 def display_status():
     if not user.plan:        
         messagebox.showinfo("There is currently no data available" )
