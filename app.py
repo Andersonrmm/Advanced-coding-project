@@ -69,10 +69,25 @@ def insert_object():
         user.put_objective(objective)
         open_menu()
         messagebox.showinfo("Your objective was placed successfully!")
-        obj_popup.destroy()
+        popup.destroy()
 
-        
+    popup = ctk.CTkToplevel(planner)
+    popup.tittle("New objective")
+    popup.geometry("500x400")
 
+    ctk.CTkLabel(popup, text="Topic:").pack(pady=(20,0))
+    insert_topic = ctk.CTkEntry(popup, width= 400)
+    insert_topic.pack()
+
+    ctk.CTkLabel(popup, text="Expected Hours:").pack(pady=(20,0))
+    insert_hours = ctk.CTkEntry(popup, width= 400)
+    insert_hours.pack()
+
+    ctk.CTkLabel(popup, text="Due date:").pack(pady=(20,0))
+    insert_date = ctk.CTkEntry(popup, width= 400)
+    insert_date.pack()
+
+    ctk.CTkButton(popup, text= "Add Objective", command= send).pack(pady = 30)
 
 
 def log_objective(): 
