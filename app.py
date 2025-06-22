@@ -28,6 +28,11 @@ panel.pack(fill="x")
 # Tittle for the buttons
 ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
 
+# To save before closing 
+def save_exit(): 
+    save_person(user) 
+    planner.quit # Close the app
+
 # App buttons 
 ctk.CTkButton(panel, text="Clear All Objectives", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: clear_goals()).pack(pady= 10)
 ctk.CTkButton(panel, text="Save and Exit", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: save_exit()).pack(pady= 10)
@@ -78,14 +83,17 @@ def insert_objective():
     popup.title ("New objective")
     popup.geometry("500x400")
 
+    # For user to insert the objective topic
     ctk.CTkLabel(popup, text="Topic: ", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Topic design
     insert_topic = ctk.CTkEntry(popup, width= 400)
     insert_topic.pack()
 
+    # For user to insert the expected hours
     ctk.CTkLabel(popup, text="Expected Hours:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Expected hours design
     insert_hours = ctk.CTkEntry(popup, width= 400)
     insert_hours.pack()
-
+    
+    # For user to insert the due date
     ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # DUe date design
     insert_date = ctk.CTkEntry(popup, width= 400)
     insert_date.pack()
@@ -96,40 +104,43 @@ def insert_objective():
 
 def log_objective():
     if not user.plan:
-        messagebox.showwarning("Currently, there are no objectives","Add a objective first")
+        messagebox.showwarning("Currently, there are no objectives","Add a objective first") # In case if the user has not added any objectives
         return  
 
     def send(): 
         selected_topic = option_menu.get()
-        selected_obj = [obj for obj in user.plan if obj.topic == selected_topic] 
+        selected_obj = [obj for obj in user.plan if obj.topic == selected_topic] # To find the chosen objective by the user
         if not selected_obj:
-            messagebox.showwarning("The selected objective was not found")
+            messagebox.showwarning("The selected objective was not found") # In case if the chosen objective is not found
             return
 
         try: 
             expected_hours = float(insert_hours.get())
         except ValueError:
-            messagebox.showerror("Please insert a valid number of hours!")
+            messagebox.showerror("Please insert a valid number of hours!") # In case the user enters incorrect data 
             return
         
-        selected_obj[0].track_time(expected_hours)
+        selected_obj[0].track_time(expected_hours) # Update the objective using current logged time by the user
         open_menu()
-        messagebox.showinfo("Your completed hours were placed successfully")
+        messagebox.showinfo("Your completed hours were placed successfully") # Confirmation
         popup.destroy()
 
     popup = ctk.CTkToplevel(planner)
     popup.title ("Loggin time in hours")
     popup.geometry("500x400")
 
-    ctk.CTkLabel(popup, text = "Choose topic:", font=ctk.CTkFont(weight="bold")).pack(pady=(10,0))
+    # To go through objectives list
+    ctk.CTkLabel(popup, text = "Choose topic:", font=ctk.CTkFont(weight="bold")).pack(pady=(10,0)) # "Choose Topic" design
     option_menu = ctk.CTkOptionMenu(popup, values=[obj.topic for obj in user.plan])
     option_menu.pack(pady=(0,20))
 
-    ctk.CTkLabel(popup, text = "Completed hours so far:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0))
+    # For user to insert the completed hours 
+    ctk.CTkLabel(popup, text = "Completed hours so far:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # "Completed" design
     insert_hours = ctk.CTkEntry(popup, width= 400)
     insert_hours.pack()
 
-    ctk.CTkButton(popup, text = "Record time", command=send, font=ctk.CTkFont(size = 12, weight= "bold", slant = "italic")).pack(pady=30)
+    # Submit button
+    ctk.CTkButton(popup, text = "Record time", command=send, font=ctk.CTkFont(size = 12, weight= "bold", slant = "italic")).pack(pady=30) # "Record time" button design
 
 
 def display_status():
@@ -158,17 +169,12 @@ def display_status():
         else: 
             ctk.CTkLabel(frame, text= "(No hours were recorded so far)", font=ctk.CTkFont(size = 13, slant= "italic")).pack(anchor = "center", padx = 40)
 
-
+# To clear all objectives
 def clear_goals():
     user.plan.clear()
-    save_person(user)
+    save_person(user) # To save after clearance  
     open_menu()
     messagebox.showinfo("All topics were cleared successfully")
-
-
-def save_exit():
-    save_person(user)
-    planner.quit
 
 menu_text.insert("0.0", "Greetings from your planner")
 open_menu()
