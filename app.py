@@ -16,7 +16,7 @@ if not user:
     name = askstring ("Greetings", "Kindly provide your name")
     user = User(person_id=1, name=name)
 
-# Planner interface
+# Planner/app interface 
 planner = ctk.CTk() 
 planner.geometry = ("1200x1200")
 planner.title("Objective Planner")
@@ -40,7 +40,7 @@ ctk.CTkButton(panel, text="Display Status", font=ctk.CTkFont(weight="bold"),  wi
 ctk.CTkButton(panel, text="Log Objectives Duration", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: log_objective()).pack(pady= 10)
 ctk.CTkButton(panel, text="Insert Objective", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: insert_objective()).pack(pady= 10)
 
-# Panel for dashboard 
+# Panel for the white dashboard 
 info = ctk.CTkFrame(panel, corner_radius= 10)
 info.pack(expand = True, fill = "both", padx = 20, pady = 20)
 
@@ -135,7 +135,7 @@ def log_objective():
     option_menu.pack(pady=(0,20))
 
     # For user to insert the completed hours 
-    ctk.CTkLabel(popup, text = "Completed hours so far:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # "Completed" design
+    ctk.CTkLabel(popup, text = "Completed hours so far:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # "Completed hours" design
     insert_hours = ctk.CTkEntry(popup, width= 400)
     insert_hours.pack()
 
@@ -156,7 +156,7 @@ def display_status():
     frame = ctk.CTkScrollableFrame(progress_record, width= 500, height = 400 ) # For user to be able to scroll through objectives
     frame.pack(pady =10, padx = 10)
 
-    # To loop through all objectives with the tittle, expected hours and completed hours 
+    # To loop through all objectives (tittle: expected hours and completed hours) 
     for obj in user.plan: 
         ctk.CTkLabel(frame, text =f" {obj.topic}", font=ctk.CTkFont(size= 18, weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
         ctk.CTkLabel(frame, text = f" Expected hours: {obj.expected_hours}h").pack(anchor ="center", padx = 20, pady = (20,0))
@@ -165,9 +165,11 @@ def display_status():
         if obj.history: 
             for date, hrs in obj.history: 
                 ctk.CTkLabel(frame, text=f"{date} - {hrs}h").pack(anchor = "center", padx = 40) # Will also show up in case if the user logged the time 
+
         # Will show up in case if the user did not log the completed hours 
         else: 
             ctk.CTkLabel(frame, text= "(No hours were recorded so far)", font=ctk.CTkFont(size = 13, slant= "italic")).pack(anchor = "center", padx = 40)
+
 
 # To clear all objectives
 def clear_goals():
@@ -175,6 +177,7 @@ def clear_goals():
     save_person(user) # To save after clearance  
     open_menu()
     messagebox.showinfo("All topics were cleared successfully")
+
 
 menu_text.insert("0.0", "Greetings from your planner")
 open_menu()
