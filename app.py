@@ -21,6 +21,7 @@ planner = ctk.CTk()
 planner.geometry = ("1200x1200")
 planner.title("Objective Planner")
 
+# Panel for buttons
 panel = ctk.CTkFrame(planner, width=300, corner_radius=0)
 panel.pack(fill="x")
 
@@ -34,6 +35,7 @@ ctk.CTkButton(panel, text="Display Status", font=ctk.CTkFont(weight="bold"),  wi
 ctk.CTkButton(panel, text="Log Objectives Duration", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: log_objective()).pack(pady= 10)
 ctk.CTkButton(panel, text="Insert Objective", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: insert_objective()).pack(pady= 10)
 
+# Panel for dashboard 
 info = ctk.CTkFrame(panel, corner_radius= 10)
 info.pack(expand = True, fill = "both", padx = 20, pady = 20)
 
@@ -49,44 +51,46 @@ menu_text.pack(fill = "y", pady = 20)
 
 def open_menu(): 
     menu_text.delete("0.0", "end")
-    for objective in user.plan: 
-        progress = objective.view_progression()
-        report = "Finalized" if progress >= 100 else f"{progress:.1f}%"
-        menu_text.insert("end", f"{objective.topic} : {objective.hours_accomplished}h/{objective.expected_hours}h | {report}\n") 
+    for objective in user.plan: # To go through all objectives 
+        progress = objective.view_progression() # To get objective progression
+        report = "Finalized" if progress >= 100 else f"{progress:.1f}%" # Show "Finalized" if user has completed the objective if not shows the current progression in %
+        menu_text.insert("end", f"{objective.topic} : {objective.hours_accomplished}h/{objective.expected_hours}h | {report}\n") # Objective line in dashboard 
 
 
 def insert_objective():
     def send():
-        topic = insert_topic.get()
+        topic = insert_topic.get() # For the user to input the objective topic
         try: 
-            expected_hours = float(insert_hours.get())
-            due_date = datetime.datetime.strptime(insert_date.get(), "%Y-%m-%d").date()
+            expected_hours = float(insert_hours.get()) # To convert the objective expected hours into float
+            due_date = datetime.datetime.strptime(insert_date.get(), "%Y-%m-%d").date() # When the user is willing to complete the objective
         except ValueError:
-            messagebox.showerror("Invalid data", "Please insert a valid data")
+            messagebox.showerror("Invalid data", "Please insert a valid data") # In case if the user inserts a wrong input 
             return
         
-        objective = Obj(topic, expected_hours, due_date)
-        user.put_objective(objective)
+        objective = Obj(topic, expected_hours, due_date) 
+        user.put_objective(objective) # TO add user objective to dashboard list
         open_menu()
-        messagebox.showinfo("Your objective was placed successfully!")
-        popup.destroy()
+        messagebox.showinfo("Your objective was placed successfully!") 
+        popup.destroy() # To close the window that pop's up
 
-    popup = ctk.CTkToplevel(planner)
+    # New objective layout 
+    popup = ctk.CTkToplevel(planner) 
     popup.title ("New objective")
     popup.geometry("500x400")
 
-    ctk.CTkLabel(popup, text="Topic: ", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0))
+    ctk.CTkLabel(popup, text="Topic: ", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Topic design
     insert_topic = ctk.CTkEntry(popup, width= 400)
     insert_topic.pack()
 
-    ctk.CTkLabel(popup, text="Expected Hours:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0))
+    ctk.CTkLabel(popup, text="Expected Hours:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Expected hours design
     insert_hours = ctk.CTkEntry(popup, width= 400)
     insert_hours.pack()
 
-    ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0))
+    ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # DUe date design
     insert_date = ctk.CTkEntry(popup, width= 400)
     insert_date.pack()
 
+    # To send objective details 
     ctk.CTkButton(popup, text= "Add Objective", command= send, font=ctk.CTkFont(size = 12, weight= "bold", slant= "italic")).pack(pady = 30)
 
 
