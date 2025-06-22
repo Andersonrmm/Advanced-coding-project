@@ -1,19 +1,22 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from tkinter.simpledialog import askstring
-from models.person import User
-from models.objective import Obj
+from models.person import User # To import user model
+from models.objective import Obj #To import objective model 
 from persistence import save_person, read_person
 import datetime
 
-ctk.set_appearance_mode("light")
-ctk.set_default_color_theme("dark-blue")
+# APP visual appeal
+ctk.set_appearance_mode("light") 
+ctk.set_default_color_theme("dark-blue") 
 
+# To create user 
 user = read_person()
 if not user:
     name = askstring ("Greetings", "Kindly provide your name")
     user = User(person_id=1, name=name)
 
+# Planner interface
 planner = ctk.CTk() 
 planner.geometry = ("1200x1200")
 planner.title("Objective Planner")
@@ -21,9 +24,11 @@ planner.title("Objective Planner")
 panel = ctk.CTkFrame(planner, width=300, corner_radius=0)
 panel.pack(fill="x")
 
+# Tittle for the buttons
 ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
 
-ctk.CTkButton(panel, text="Clear All objectives", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: clear_goals()).pack(pady= 10)
+# App buttons 
+ctk.CTkButton(panel, text="Clear All Objectives", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: clear_goals()).pack(pady= 10)
 ctk.CTkButton(panel, text="Save and Exit", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: save_exit()).pack(pady= 10)
 ctk.CTkButton(panel, text="Display Status", font=ctk.CTkFont(weight="bold"),  width= 200, command= lambda: display_status()).pack(pady= 10)
 ctk.CTkButton(panel, text="Log Objectives Duration", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: log_objective()).pack(pady= 10)
@@ -32,9 +37,11 @@ ctk.CTkButton(panel, text="Insert Objective", font=ctk.CTkFont(weight="bold"), w
 info = ctk.CTkFrame(panel, corner_radius= 10)
 info.pack(expand = True, fill = "both", padx = 20, pady = 20)
 
+# Dashboard tittle 
 tittle_label = ctk.CTkLabel(info, text ="Your Objectives", font=ctk.CTkFont(size= 30, weight="bold"))
 tittle_label.pack(pady=25)
 
+# App dashboard
 menu_text = ctk.CTkTextbox(info, width= 700, height= 400)
 menu_text.configure(fg_color = "#ffffff", text_color = "#000000")
 menu_text.pack(fill = "y", pady = 20)
