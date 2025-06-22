@@ -76,10 +76,10 @@ def insert_objective():
         user.put_objective(objective) # To add user objective to dashboard list
         open_menu()
         messagebox.showinfo("Your objective was placed successfully!") 
-        popup.destroy() # To close the window that pop's up
+        popup.destroy # To close the window that pop's up
 
-    # New objective layout 
-    popup = ctk.CTkToplevel(planner) 
+    # New objective layout
+    popup = ctk.CTkToplevel(planner)
     popup.title ("New objective")
     popup.geometry("500x400")
 
