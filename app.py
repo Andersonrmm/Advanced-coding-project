@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter.simpledialog import askstring
 from models.person import User # To import user model
 from models.objective import Obj #To import objective model 
-from persistence import save_person, read_person
+from persistence import save_person, read_person # To import persistence
 import datetime
 
 # APP visual appeal
@@ -28,14 +28,13 @@ panel.pack(fill="x")
 # Tittle for the buttons
 ctk.CTkLabel(panel, text= "Menu", font= ctk.CTkFont(size= 20, weight="bold")).pack(pady=20)
 
-# To save before closing 
+# To save  
 def save_exit(): 
     save_person(user) 
-    planner.quit # Close the app
 
 # App buttons 
 ctk.CTkButton(panel, text="Clear All Objectives", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: clear_goals()).pack(pady= 10)
-ctk.CTkButton(panel, text="Save and Exit", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: save_exit()).pack(pady= 10)
+ctk.CTkButton(panel, text="Save", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: save_exit()).pack(pady= 10)
 ctk.CTkButton(panel, text="Display Status", font=ctk.CTkFont(weight="bold"),  width= 200, command= lambda: display_status()).pack(pady= 10)
 ctk.CTkButton(panel, text="Log Objectives Duration", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: log_objective()).pack(pady= 10)
 ctk.CTkButton(panel, text="Insert Objective", font=ctk.CTkFont(weight="bold"), width= 200, command= lambda: insert_objective()).pack(pady= 10)
