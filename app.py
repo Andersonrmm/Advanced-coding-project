@@ -53,7 +53,7 @@ def open_menu():
     menu_text.delete("0.0", "end")
     for objective in user.plan: # To go through all objectives 
         progress = objective.view_progression() # To get objective progression
-        report = "Finalized" if progress >= 100 else f"{progress:.1f}%" # Show "Finalized" if user has completed the objective if not shows the current progression in %
+        report = "Finalized" if progress >= 100 else f"{progress:.1f}%" # Shows "Finalized" if user has completed the objective if not, shows the current progression in %
         menu_text.insert("end", f"{objective.topic} : {objective.hours_accomplished}h/{objective.expected_hours}h | {report}\n") # Objective line in dashboard 
 
 
@@ -134,24 +134,27 @@ def log_objective():
 
 def display_status():
     if not user.plan:        
-        messagebox.showinfo("There is currently no data available" )
+        messagebox.showinfo("There is currently no data available" ) # Pop's up when there are no objectives available 
         return
 
+    # Creation of objective record 
     progress_record = ctk.CTkToplevel(planner)
     progress_record.title("Objective record")
     progress_record.geometry("600x500")
 
-    frame = ctk.CTkScrollableFrame(progress_record, width= 500, height = 400 )
+    frame = ctk.CTkScrollableFrame(progress_record, width= 500, height = 400 ) # For user to be able to scroll through objectives
     frame.pack(pady =10, padx = 10)
 
+    # To loop through all objectives with the tittle, expected hours and completed hours 
     for obj in user.plan: 
         ctk.CTkLabel(frame, text =f" {obj.topic}", font=ctk.CTkFont(size= 18, weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
         ctk.CTkLabel(frame, text = f" Expected hours: {obj.expected_hours}h").pack(anchor ="center", padx = 20, pady = (20,0))
-        ctk.CTkLabel(frame, text= f" Completed so far: {obj.hours_accomplished}h").pack(anchor ="center",padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text= f" Completed hours so far: {obj.hours_accomplished}h").pack(anchor ="center",padx = 20, pady = (20,0))
 
         if obj.history: 
             for date, hrs in obj.history: 
-                ctk.CTkLabel(frame, text=f"{date} - {hrs}h").pack(anchor = "center", padx = 40)
+                ctk.CTkLabel(frame, text=f"{date} - {hrs}h").pack(anchor = "center", padx = 40) # Will also show up in case if the user logged the time 
+        # Will show up in case if the user did not log the completed hours 
         else: 
             ctk.CTkLabel(frame, text= "(No hours were recorded so far)", font=ctk.CTkFont(size = 13, slant= "italic")).pack(anchor = "center", padx = 40)
 
