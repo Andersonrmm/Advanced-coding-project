@@ -134,15 +134,15 @@ def display_status():
     frame.pack(pady =10, padx = 10)
 
     for obj in user.plan: 
-        ctk.CTkLabel(frame, text =f"{obj.topic}", font=ctk.CTkFont(size= 18, weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
-        ctk.CTkLabel(frame, text =f"Expected hours: {obj.expected_hours}h").pack(anchor ="center", padx = 20, pady = (20,0))
-        ctk.CTkLabel(frame, text= f"Completed so far: {obj.hours_accomplished}h").pack(anchor ="center",padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text =f" {obj.topic}", font=ctk.CTkFont(size= 18, weight="bold")).pack(anchor ="center", padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text = f" Expected hours: {obj.expected_hours}h").pack(anchor ="center", padx = 20, pady = (20,0))
+        ctk.CTkLabel(frame, text= f" Completed so far: {obj.hours_accomplished}h").pack(anchor ="center",padx = 20, pady = (20,0))
 
         if obj.history: 
             for date, hrs in obj.history: 
                 ctk.CTkLabel(frame, text=f"{date} - {hrs}h").pack(anchor = "center", padx = 40)
         else: 
-            ctk.CTkLabel(frame, text="(No hours were recorded so far)", font=ctk.CTkFont(size = 13, slant= "italic")).pack(anchor = "center", padx = 40)
+            ctk.CTkLabel(frame, text= "(No hours were recorded so far)", font=ctk.CTkFont(size = 13, slant= "italic")).pack(anchor = "center", padx = 40)
 
 
 def clear_goals():
