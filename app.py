@@ -67,13 +67,13 @@ def insert_objective():
         topic = insert_topic.get() # For the user to input the objective topic
         try: 
             expected_hours = float(insert_hours.get()) # To convert the objective expected hours into float
-            due_date = datetime.datetime.strptime(insert_date.get(), "%Y-%m-%d").date() # When the user is willing to complete the objective
+            due_date = datetime.datetime.strptime(insert_date.get(), "%Y-%m-%d").date() # On which date the user is willing to complete the objective
         except ValueError:
-            messagebox.showerror("Invalid data", "Please insert a valid data") # In case if the user inserts a wrong input 
+            messagebox.showerror("Invalid data", "Please insert a valid data") # In case the user enters incorrect data  
             return
         
         objective = Obj(topic, expected_hours, due_date) 
-        user.put_objective(objective) # TO add user objective to dashboard list
+        user.put_objective(objective) # To add user objective to dashboard list
         open_menu()
         messagebox.showinfo("Your objective was placed successfully!") 
         popup.destroy() # To close the window that pop's up
