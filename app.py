@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter.simpledialog import askstring
 from models.person import User # To import user model
 from models.objective import Obj #To import objective model 
-from persistence import save_person, read_person # To import persistence
+from persistence import save_person, read_person # To import persistence model
 import datetime
 
 # APP visual appeal
@@ -57,7 +57,7 @@ def open_menu():
     menu_text.delete("0.0", "end")
     for objective in user.plan: # To go through all objectives 
         progress = objective.view_progression() # To get objective progression
-        report = "Finalized" if progress >= 100 else f"{progress:.1f}%" # Shows "Finalized" if user has completed the objective if not, shows the current progression in %
+        report = "FINALIZED!" if progress >= 100 else f"{progress:.1f}%" # Shows "Finalized" if user has completed the objective if not, shows the current progression in %
         menu_text.insert("end", f"{objective.topic} : {objective.hours_accomplished}h/{objective.expected_hours}h | {report}\n") # Objective line in dashboard 
 
 
@@ -87,17 +87,17 @@ def insert_objective():
     insert_topic = ctk.CTkEntry(popup, width= 400)
     insert_topic.pack()
 
-    # For user to insert the expected hours
+    # For user to insert the expected hours of the objective
     ctk.CTkLabel(popup, text="Expected Hours:", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Expected hours design
     insert_hours = ctk.CTkEntry(popup, width= 400)
     insert_hours.pack()
     
-    # For user to insert the due date
+    # For user to insert the due date of the object
     ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # DUe date design
     insert_date = ctk.CTkEntry(popup, width= 400)
     insert_date.pack()
 
-    # To send objective details 
+    # To send objective details (Send button)
     ctk.CTkButton(popup, text= "Add Objective", command= send, font=ctk.CTkFont(size = 12, weight= "bold", slant= "italic")).pack(pady = 30)
 
 
