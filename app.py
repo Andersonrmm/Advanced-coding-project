@@ -144,7 +144,7 @@ def log_objective():
 
 def display_status():
     if not user.plan:        
-        messagebox.showinfo("There is currently no data available" ) # Pop's up when there are no objectives available 
+        messagebox.showinfo("There is currently no data available" ,"Add a objective first" ) # Pop's up when there are no objectives available 
         return
 
     # Creation of objective record 

@@ -5,8 +5,8 @@ class Person:
 
 class User(Person):
     def __init__(self, person_id, name):
-        super().__init__(person_id, name) # For user class to reuse the code from person class 
+        super().__init__(person_id, name) # For user class@ to reuse the code from person class 
         self.plan = []
 
     def put_objective(self,objective):
-        self.plan.append(objective) # To add the plan to the given plans list  
+        self.plan.append(objective) # To add the plan/objective to the given objectives list  
