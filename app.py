@@ -93,7 +93,7 @@ def insert_objective():
     insert_hours.pack()
     
     # For user to insert the due date of the object
-    ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # DUe date design
+    ctk.CTkLabel(popup, text="Due date (YYYY-MM-DD):", font=ctk.CTkFont(weight="bold")).pack(pady=(20,0)) # Due date design
     insert_date = ctk.CTkEntry(popup, width= 400)
     insert_date.pack()
 
