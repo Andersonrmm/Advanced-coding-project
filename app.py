@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter.simpledialog import askstring
 from models.person import User # To import user model
 from models.objective import Obj #To import objective model 
-from persistence import save_person, read_person # To import persistence model
+from storage.persistence import save_person, read_person # To import persistence model
 import datetime
 
 # APP visual appeal
