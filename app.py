@@ -57,7 +57,7 @@ def open_menu():
     menu_text.delete("0.0", "end")
     for objective in user.plan: # To go through all objectives 
         progress = objective.view_progression() # To get objective progression
-        report = "FINALIZED!" if progress >= 100 else f"{progress:.1f}%" # Shows "Finalized" if user has completed the objective if not, shows the current progression in %
+        report = "FINALISED!" if progress >= 100 else f"{progress:.1f}%" # Shows "Finalized" if user has completed the objective if not, shows the current progression in %
         menu_text.insert("end", f"{objective.topic} : {objective.hours_accomplished}h/{objective.expected_hours}h | {report}\n") # Objective line in dashboard 
 
 
